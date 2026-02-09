@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | VeerNeo</title>
+    <title>Contact | VeerNeo</title>
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -39,44 +39,49 @@
 
     <header class="page-header">
         <div class="section-content">
-            <span class="eyebrow">Our Story</span>
-            <h1 class="reveal">Prompt the Physical World.</h1>
-            <p class="large-p">Born in the labs of Dayananda Sagar University, VeerNeo is redefining how humans interface with engineering software through natural language CAD generation.</p>
+            <span class="eyebrow">Contact Us</span>
+            <h1 class="reveal">Let's build the future.</h1>
+            <p class="large-p">Have questions about our generative CAD technology or want to explore enterprise solutions? We're here to help.</p>
         </div>
     </header>
 
     <main class="section-content">
-        <section style="margin-bottom: 120px; text-align: center;">
-            <div class="bento-item" style="max-width: 800px; margin: 0 auto; background: var(--apple-bg-secondary); border: 1px solid var(--apple-border); padding: 60px 40px; border-radius: 32px;">
-                <span class="eyebrow">The Vision</span>
-                <h2 style="font-size: 32px; margin-bottom: 24px; letter-spacing: -1px;">Zero Friction Modeling.</h2>
-                <p style="font-size: 19px; color: var(--apple-text-secondary); line-height: 1.6;">Technical complexity should never be a barrier to creativity. We believe that an idea can be translated into a manufacturing-ready STEP file with a single sentence. By combining LLMs with parametric geometric kernels, we're removing the barriers between imagination and reality.</p>
+        <div class="contact-grid">
+            <div class="contact-method">
+                <div style="font-size: 48px; margin-bottom: 24px;">✉️</div>
+                <h3>Email Us</h3>
+                <p>For general inquiries, partnerships, or technical support.</p>
+                <a href="mailto:veerneostudio@gmail.com" class="contact-button">veerneostudio@gmail.com</a>
+            </div>
+            <div class="contact-method">
+                <div style="font-size: 48px; margin-bottom: 24px;">🤝</div>
+                <h3>LinkedIn</h3>
+                <p>Connect with our team and stay updated on our latest releases.</p>
+                <a href="https://www.linkedin.com/in/nilesh-sarkar-4137b428b/" target="_blank" class="contact-button">Follow VeerNeo</a>
+            </div>
+        </div>
+
+        <section style="margin-top: 80px;">
+            <div class="bento-item" style="max-width: 600px; margin: 0 auto;">
+                <h3 style="font-size: 28px; margin-bottom: 24px; text-align: center;">Send a Message</h3>
+                <form action="#" class="contact-form" onsubmit="event.preventDefault(); alert('Message sent! We will get back to you soon.');">
+                    <input type="text" placeholder="Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <textarea rows="5" placeholder="How can we help?" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
             </div>
         </section>
 
-        <span class="eyebrow" style="text-align: center; display: block; margin-bottom: 40px;">Founders</span>
-        <div class="team-grid">
-            <div class="team-card">
-                <img src="Garima.png" alt="Garima Varma" class="founder-img">
-                <span class="eyebrow">CEO & Co-Founder</span>
-                <h3 style="font-size: 24px; margin-bottom: 8px;">Garima Varma</h3>
-                <p style="color: var(--apple-text-secondary); margin-bottom: 24px;">Strategy & Operations</p>
-                <div class="team-links">
-                    <a href="https://www.linkedin.com/in/garima-varma04/" target="_blank">LinkedIn</a>
-                    <a href="https://garima040106.github.io/" target="_blank">Portfolio</a>
+        <section style="margin-top: 80px; text-align: center;">
+            <div class="bento-item" style="max-width: 800px; margin: 0 auto; text-align: left;">
+                <h3 style="font-size: 28px; margin-bottom: 16px;">Visit Us</h3>
+                <p style="color: var(--apple-text-secondary); margin-bottom: 24px;">Our engineering hub is located at Dayananda Sagar University, Bangalore, where we're pioneering the next generation of manufacturing software.</p>
+                <div style="width: 100%; height: 300px; background: #eee; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #86868b; font-weight: 500; border: 1px solid var(--apple-border);">
+                    Bangalore, India
                 </div>
             </div>
-            <div class="team-card">
-                <img src="Nilesh.png" alt="Nilesh Sarkar" class="founder-img">
-                <span class="eyebrow">Founding Engineer & Co-Founder</span>
-                <h3 style="font-size: 24px; margin-bottom: 8px;">Nilesh Sarkar</h3>
-                <p style="color: var(--apple-text-secondary); margin-bottom: 24px;">AI Architecture & Systems</p>
-                <div class="team-links">
-                    <a href="https://www.linkedin.com/in/nilesh-sarkar-4137b428b/" target="_blank">LinkedIn</a>
-                    <a href="https://nileshsarkarra.github.io" target="_blank">Portfolio</a>
-                </div>
-            </div>
-        </div>
+        </section>
     </main>
 
     <footer class="global-footer">
