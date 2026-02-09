@@ -10,7 +10,7 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
     color: #1a1a1a;
     background-color: #ffffff;
@@ -20,91 +20,94 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
 }
 
-/* Navigation Bar */
+/* Glassmorphism Navigation */
 .navbar {
-    background: linear-gradient(135deg, #0f172e 0%, #1a2749 100%);
-    padding: 15px 0;
+    background: rgba(15, 23, 46, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 16px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #ffffff;
-}
-
-.logo-icon {
-    font-size: 1.8em;
 }
 
 .logo h1 {
     font-size: 1.8em;
-    margin: 0;
-    background: linear-gradient(135deg, #00d9ff, #0099ff);
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #60efff 0%, #00ff87 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-}
-
-.nav-menu a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    font-weight: 500;
-}
-
-.nav-menu a:hover {
-    color: #00d9ff;
-}
-
-/* Hero Section */
+/* Enhanced Hero Section */
 .hero {
-    background: linear-gradient(135deg, #0f172e 0%, #1a2749 50%, #2d3f66 100%);
-    color: #ffffff;
-    padding: 100px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    min-height: 600px;
+    background: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 120px 20px;
 }
 
-.hero-content {
-    flex: 1;
-    animation: slideInLeft 0.8s ease;
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    width: 40%;
+    height: 40%;
+    background: radial-gradient(circle, rgba(0, 255, 135, 0.1), transparent 70%);
 }
 
 .hero-title {
-    font-size: 3.5em;
-    margin-bottom: 20px;
-    line-height: 1.2;
-    background: linear-gradient(135deg, #00d9ff, #0099ff, #00d9ff);
+    font-size: 4.2em;
+    letter-spacing: -2px;
+    background: linear-gradient(to bottom right, #ffffff, #94a3b8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 800;
+}
+
+/* Card Improvements */
+.feature-card, .founder-card {
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-card:hover, .founder-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Founder Specifics */
+.founders {
+    background: #f8fafc;
+}
+
+.founder-avatar {
+    background: linear-gradient(135deg, #00ff87 0%, #60efff 100%);
+    box-shadow: 0 10px 15px -3px rgba(0, 255, 135, 0.3);
+}
+
+.role {
+    background: #f1f5f9;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
 }
 
 .hero-subtitle {
