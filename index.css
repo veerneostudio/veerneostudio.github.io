@@ -75,6 +75,17 @@ li {
     line-height: 1.8;
 }
 
+/* Status Badge */
+#status {
+    display: inline-block;
+    padding: 5px 15px;
+    background: #27ae60;
+    color: white;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
 /* Paragraphs */
 p {
     margin-bottom: 15px;

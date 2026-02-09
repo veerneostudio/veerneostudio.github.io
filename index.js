@@ -9,7 +9,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize page
     initializeHeader();
     initializeContent();
+    updateDeploymentStatus();
 });
+
+/**
+ * Update deployment status
+ */
+function updateDeploymentStatus() {
+    const statusElement = document.getElementById('status');
+    if (statusElement) {
+        const timestamp = new Date().toLocaleString();
+        statusElement.textContent = `Live ✓ (Updated: ${timestamp})`;
+        console.log('Deployment status updated:', timestamp);
+    }
+}
 
 /**
  * Initialize header functionality
