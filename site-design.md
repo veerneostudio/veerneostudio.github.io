@@ -23,6 +23,7 @@ This document outlines the design principles, technical specifications, and styl
 
 ## 4. Components
 ### Navigation Bar
+- **Logo**: Stylized SVG "VN" geometric abstraction (Isometric V with mesh vertices).
 - **Style**: Floating Card (24px from top).
 - **Effect**: Glassmorphism (75% opacity, 20px blur), Border Radius 20px.
 - **Behavior**: Fixed to top center, width 90% (max 1024px).
