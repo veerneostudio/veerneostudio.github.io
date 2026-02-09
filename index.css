@@ -255,10 +255,17 @@ header.page-header {
 }
 
 @media (max-width: 768px) {
-    .global-nav { width: 95%; top: 12px; height: 50px; border-radius: 12px; }
-    .nav-links { gap: 16px; }
-    .nav-links a { font-size: 11px; }
-    .nav-cta { padding: 6px 12px !important; }
+    .global-nav { 
+        width: 96%; 
+        top: 8px; 
+        height: 64px; 
+        border-radius: 16px; 
+    }
+    .nav-content { padding: 0 12px; }
+    .nav-logo { font-size: 18px; }
+    .nav-links { gap: 12px; }
+    .nav-links a { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .nav-cta { padding: 8px 14px !important; margin-left: 4px; }
     .reveal { font-size: 42px; }
     .bento-grid { grid-template-columns: 1fr; }
     .bento-item.large { grid-column: span 1; }
