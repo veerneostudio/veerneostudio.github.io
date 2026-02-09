@@ -400,20 +400,66 @@ header.page-header {
 
 @media (max-width: 768px) {
     .global-nav { 
-        width: 100%; 
-        top: 0; 
-        height: 48px; 
-        border-radius: 0; 
+        height: 44px;
     }
-    .footer-grid { grid-template-columns: repeat(2, 1fr); }
-    .contact-grid, .team-grid { grid-template-columns: 1fr; }
+    .nav-content {
+        padding: 0 16px;
+    }
+    .nav-links {
+        gap: 16px;
+    }
+    .nav-links a:not(.nav-cta) {
+        display: none; /* Hide non-essential links on very small screens to prevent overlap */
+    }
+    .nav-logo span {
+        font-size: 17px;
+    }
+
+    .section-content {
+        padding: 60px 20px;
+    }
+    header.page-header {
+        padding: 100px 20px 40px;
+    }
+    .reveal {
+        font-size: 40px;
+        letter-spacing: -1px;
+    }
+    .large-p {
+        font-size: 19px;
+    }
+
+    .bento-grid {
+        grid-template-columns: 1fr;
+    }
+    .bento-item.large {
+        grid-column: span 1;
+    }
+    .bento-item {
+        padding: 30px;
+    }
+
+    .footer-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 30px;
+    }
+
+    .contact-grid, .team-grid { 
+        grid-template-columns: 1fr; 
+    }
+    .contact-method, .team-card {
+        padding: 40px 20px;
+    }
+
     .scene-3d { 
         width: 200px; 
         height: 200px; 
+        margin: 40px auto;
     }
     .face {
         width: 200px;
         height: 200px;
+        font-size: 16px;
     }
     .front  { transform: translateZ(100px); }
     .back   { transform: rotateY(180deg) translateZ(100px); }
@@ -421,4 +467,26 @@ header.page-header {
     .bottom { transform: rotateX(-90deg) translateZ(100px); }
     .left   { transform: rotateY(-90deg) translateZ(100px); }
     .right  { transform: rotateY(90deg) translateZ(100px); }
+
+    .founder-img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .hero-stats {
+        flex-wrap: wrap;
+    }
+    .stat-pill {
+        font-size: 12px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .nav-links {
+        gap: 12px;
+    }
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
 }
