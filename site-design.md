@@ -23,9 +23,9 @@ This document outlines the design principles, technical specifications, and styl
 
 ## 4. Components
 ### Navigation Bar
-- **Height**: 48px
-- **Effect**: Glassmorphism (72% opacity, 20px blur).
-- **Behavior**: Fixed to top.
+- **Style**: Floating Card (24px from top).
+- **Effect**: Glassmorphism (75% opacity, 20px blur), Border Radius 20px.
+- **Behavior**: Fixed to top center, width 90% (max 1024px).
 
 ### Bento Grid
 - **Border Radius**: 28px
@@ -46,13 +46,14 @@ This document outlines the design principles, technical specifications, and styl
 - **Desktop**: 1024px max-width for main content.
 - **Tablets**: Stack grids to single columns where clarity is lost.
 - **Mobile**:
-    - Reduce heading size to `48px`.
-    - Stack nav links vertically or reduce spacing.
+    - Reduce heading size to `42px`.
+    - Nav: 95% width, 12px from top, 12px radius.
     - Reduce bento grid padding to `20px`.
 
 ## 7. Branding & Team
 - **CEO & Co-founder**: Garima Varma (Management, Strategy).
 - **Founding AI Engineer & Co-founder**: Nilesh Sarkar (AI Architecture, Engineering).
+- **Contact**: veerneostudio@gmail.com
 
 ---
 *Maintained by the VeerNeo Founding Team.*
