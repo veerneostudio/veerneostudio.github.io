@@ -1,0 +1,147 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f9;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #35424a 0%, #2c363b 100%);
+    color: #ffffff;
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom: #e8491d 4px solid;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+/* Main Container */
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+/* Headings */
+h2 {
+    color: #35424a;
+    font-size: 2em;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e8491d;
+    padding-bottom: 10px;
+}
+
+h3 {
+    color: #35424a;
+    font-size: 1.5em;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+/* Lists */
+ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+li {
+    margin-bottom: 10px;
+    line-height: 1.8;
+}
+
+/* Paragraphs */
+p {
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
+/* Links */
+a {
+    color: #e8491d;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #35424a;
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    font-size: 0.9em;
+    color: #777;
+    border-top: 1px solid #ddd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    header p {
+        font-size: 1em;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    main {
+        margin: 20px auto;
+    }
+}
+
+/* Animation */
+.container {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
