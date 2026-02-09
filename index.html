@@ -3,206 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VeerNeo | AI-Powered 3D Model Generation</title>
+    <title>VeerNeo | Generative AI for 3D Modeling</title>
     <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="logo-icon">🤖</span>
-                <h1>VeerNeo</h1>
+    <div class="glow-bg"></div>
+    
+    <nav class="nav">
+        <div class="nav-inner">
+            <div class="nav-logo">VEERNEO</div>
+            <div class="nav-links">
+                <a href="#technology">Technology</a>
+                <a href="#about">About</a>
+                <a href="#" class="btn-sm">Early Access</a>
             </div>
-            <ul class="nav-menu">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#founders">Team</a></li>
-                <li><a href="#cta">Get Started</a></li>
-            </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Transform Ideas into 3D Reality</h1>
-            <p class="hero-subtitle">Generate editable 3D models from simple text prompts using advanced AI</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary">Try VeerNeo Now</button>
-                <button class="btn btn-secondary">Learn More</button>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="cube-animation"></div>
-        </div>
-    </header>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <h2>Why Choose VeerNeo?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">✨</div>
-                    <h3>AI-Powered Generation</h3>
-                    <p>Advanced machine learning algorithms create precise 3D models from your descriptions</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <h3>Full Customization</h3>
-                    <p>Edit and refine generated models with intuitive controls and real-time preview</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Lightning Fast</h3>
-                    <p>Generate complex 3D models in seconds, not hours</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3>CAD Integration</h3>
-                    <p>Seamless export to popular CAD formats for professional workflows</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🌐</div>
-                    <h3>Cloud-Based</h3>
-                    <p>Access your projects from anywhere with automatic cloud synchronization</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Secure & Reliable</h3>
-                    <p>Enterprise-grade security for your valuable design data</p>
+    <main>
+        <section class="hero-minimal">
+            <div class="hero-content">
+                <span class="badge">Next Generation CAD</span>
+                <h1>Prompt to <span class="gradient-text">Production.</span></h1>
+                <p>An AI agent designed to bridge the gap between intuition and 3D modeling. Generate editable, professional-grade CAD models in seconds.</p>
+                <div class="hero-action">
+                    <button class="btn-main">Get Started</button>
+                    <span class="dsu-highlight">Built by DSU Bangalore Students</span>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="hero-canvas">
+                <div class="abstract-shape"></div>
+            </div>
+        </section>
 
-    <!-- How It Works Section -->
-    <section class="how-it-works">
-        <div class="container">
-            <h2>How VeerNeo Works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Describe</h3>
-                    <p>Write a natural language description of the 3D model you want</p>
+        <section id="technology" class="grid-section">
+            <div class="section-header">
+                <h2>Design Reimagined</h2>
+                <p>VeerNeo creates full-parameter 3D geometry from natural language, not just meshes.</p>
+            </div>
+            <div class="card-grid">
+                <div class="minimal-card">
+                    <h3>01</h3>
+                    <h4>Natural Language</h4>
+                    <p>Describe your component requirements in plain English.</p>
                 </div>
-                <div class="step-arrow">→</div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Generate</h3>
-                    <p>Our AI processes your prompt and creates a high-quality 3D model</p>
+                <div class="minimal-card">
+                    <h3>02</h3>
+                    <h4>Parametric Logic</h4>
+                    <p>AI generates underlying constraints and mathematical relationships.</p>
                 </div>
-                <div class="step-arrow">→</div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Edit</h3>
-                    <p>Customize and refine the model to your exact specifications</p>
-                </div>
-                <div class="step-arrow">→</div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Export</h3>
-                    <p>Download your model in any standard 3D format</p>
+                <div class="minimal-card">
+                    <h3>03</h3>
+                    <h4>Native Export</h4>
+                    <p>Direct integration with professional CAD software suites.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Founders Section -->
-    <section id="founders" class="founders">
-        <div class="container">
-            <h2>Our Story</h2>
-            <p class="section-subtitle">Innovating from <strong>Dayananda Sagar University, Bangalore</strong></p>
-            <div class="founders-grid">
-                <div class="founder-card">
-                    <div class="founder-avatar">G</div>
-                    <h3>Garima</h3>
-                    <p class="role">Co-Founder & AI Specialist</p>
-                    <p class="bio">Passionate student at DSU Bangalore. Expert in machine learning and generative AI for 3D design and engineering.</p>
-                </div>
-                <div class="founder-card">
-                    <div class="founder-avatar">N</div>
-                    <h3>Nilesh</h3>
-                    <p class="role">Co-Founder & Full-Stack Engineer</p>
-                    <p class="bio">Dayananda Sagar University student focused on bridging the gap between artificial intelligence and CAD technologies.</p>
+        <section id="about" class="story-section">
+            <div class="story-content">
+                <h2>Founded at DSU Bangalore</h2>
+                <p>What started as a research project at Dayananda Sagar University is now a movement to democratize 3D engineering. Founded by Garima and Nilesh, VeerNeo is built for the next generation of engineers.</p>
+                <div class="founder-mini-grid">
+                    <div class="founder-pill">
+                        <span class="pill-title">Garima</span>
+                        <span class="pill-desc">AI Architecture</span>
+                    </div>
+                    <div class="founder-pill">
+                        <span class="pill-title">Nilesh</span>
+                        <span class="pill-desc">Systems Design</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Statistics Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stat-item">
-                <h3>10K+</h3>
-                <p>Models Generated</p>
-            </div>
-            <div class="stat-item">
-                <h3>2.5K+</h3>
-                <p>Active Users</p>
-            </div>
-            <div class="stat-item">
-                <h3>98%</h3>
-                <p>Satisfaction Rate</p>
-            </div>
-            <div class="stat-item">
-                <h3>24/7</h3>
-                <p>Support Available</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section id="cta" class="cta">
-        <div class="container">
-            <h2>Ready to Transform Your Design Workflow?</h2>
-            <p>Join thousands of professionals using VeerNeo to accelerate their creative process</p>
-            <button class="btn btn-large">Start Your Free Trial</button>
-            <p class="cta-subtitle">No credit card required • 14-day free trial • Full access to all features</p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>VeerNeo</h4>
-                    <p>AI-Powered 3D Model Generation</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Product</h4>
-                    <ul>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Documentation</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 VeerNeo. Founded by Garima and Nilesh. All rights reserved.</p>
-            </div>
+    <footer class="minimal-footer">
+        <div class="footer-inner">
+            <p>&copy; 2026 VeerNeo. All Rights Reserved.</p>
+            <div class="footer-brand">Based in Bangalore, India</div>
         </div>
     </footer>
 
