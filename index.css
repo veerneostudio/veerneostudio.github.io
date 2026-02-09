@@ -16,45 +16,44 @@
 body {
     background-color: var(--apple-bg);
     color: var(--apple-text);
-    font-family: 'Inter', -apple-system, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
-    line-height: 1.5;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -0.022em;
     overflow-x: hidden;
 }
 
 .global-nav {
     position: fixed;
-    top: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 1024px;
-    height: 58px;
-    background: rgba(255, 255, 255, 0.75);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 48px;
+    background: rgba(251, 251, 253, 0.8);
     backdrop-filter: saturate(180%) blur(20px);
-    border: 1px solid var(--apple-border);
-    border-radius: 20px;
+    border-bottom: 1px solid var(--apple-border);
     z-index: 1000;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-content {
-    max-width: 100%;
+    max-width: 1024px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    padding: 0 24px;
+    padding: 0 22px;
 }
 
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    font-size: 20px;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 19px;
     text-decoration: none;
     color: var(--apple-text);
     letter-spacing: -0.5px;
@@ -82,9 +81,9 @@ body {
 .nav-links a {
     text-decoration: none;
     color: var(--apple-text);
-    font-size: 13px;
-    font-weight: 500;
-    opacity: 0.6;
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.8;
     transition: opacity 0.2s ease;
 }
 
@@ -93,13 +92,19 @@ body {
 }
 
 .nav-cta {
-    background: var(--apple-blue);
+    background: #000;
     color: white !important;
-    padding: 8px 18px !important;
-    border-radius: 12px !important;
+    padding: 5px 11px !important;
+    border-radius: 980px !important;
     opacity: 1 !important;
-    font-weight: 600 !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
     margin-left: 8px;
+    transition: background 0.2s ease;
+}
+
+.nav-cta:hover {
+    background: #333;
 }
 
 .team-links {
@@ -145,8 +150,8 @@ header.page-header {
 .scene-3d {
     width: 280px;
     height: 280px;
-    perspective: 1200px;
-    margin: 40px auto;
+    perspective: 2000px;
+    margin: 60px auto;
 }
 
 .cube {
@@ -154,23 +159,25 @@ header.page-header {
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
-    animation: rotate-cube 20s infinite linear;
+    animation: rotate-cube 30s infinite cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .face {
     position: absolute;
     width: 280px;
     height: 280px;
-    border: 1px solid rgba(0, 102, 204, 0.2);
+    border: 1px solid rgba(0, 102, 204, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(2px);
-    font-weight: 700;
-    font-size: 24px;
-    color: var(--apple-blue);
-    opacity: 0.7;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--apple-text);
+    box-shadow: inset 0 0 40px rgba(0, 102, 204, 0.05);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .front  { transform: translateZ(140px); }
@@ -181,8 +188,10 @@ header.page-header {
 .right  { transform: rotateY(90deg) translateZ(140px); }
 
 @keyframes rotate-cube {
-    from { transform: rotateX(0deg) rotateY(0deg); }
-    to { transform: rotateX(360deg) rotateY(360deg); }
+    0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+    33% { transform: rotateX(120deg) rotateY(120deg) rotateZ(30deg); }
+    66% { transform: rotateX(240deg) rotateY(240deg) rotateZ(-30deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(0deg); }
 }
 
 .eyebrow {
@@ -257,7 +266,8 @@ header.page-header {
 }
 
 .global-footer {
-    padding: 60px 22px;
+    background: var(--apple-bg-secondary);
+    padding: 80px 22px 40px;
     border-top: 1px solid var(--apple-border);
     font-size: 12px;
     color: var(--apple-text-secondary);
@@ -266,36 +276,39 @@ header.page-header {
 .footer-content {
     max-width: 1024px;
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-col h5 {
+    color: var(--apple-text);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.footer-col a {
+    display: block;
+    color: var(--apple-text-secondary);
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.2s;
+}
+
+.footer-col a:hover {
+    color: var(--apple-text);
 }
 
 @media (max-width: 768px) {
     .global-nav { 
-        width: 96%; 
-        top: 8px; 
-        height: 64px; 
-        border-radius: 16px; 
+        width: 100%; 
+        top: 0; 
+        height: 48px; 
+        border-radius: 0; 
     }
-    .nav-content { padding: 0 12px; }
-    .nav-logo { font-size: 16px; }
-    .nav-links { gap: 8px; }
-    .nav-links a { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
-    .nav-cta { padding: 8px 10px !important; margin-left: 2px; font-size: 9px !important; }
-    .reveal { font-size: 36px; letter-spacing: -1px; }
-    .large-p { font-size: 18px; line-height: 1.4; padding: 0 10px; }
-    .bento-grid { grid-template-columns: 1fr; gap: 16px; }
-    .bento-item { padding: 30px 20px; }
-    .bento-item.large { grid-column: span 1; }
-    .team-grid { grid-template-columns: 1fr; }
-    .team-card { padding: 40px 20px; }
-    .scene-3d { width: 160px; height: 160px; margin: 20px auto; }
-    .face { width: 160px; height: 160px; font-size: 16px; }
-    .front  { transform: translateZ(80px); }
-    .back   { transform: rotateY(180deg) translateZ(80px); }
-    .top    { transform: rotateX(90deg) translateZ(80px); }
-    .bottom { transform: rotateX(-90deg) translateZ(80px); }
-    .left   { transform: rotateY(-90deg) translateZ(80px); }
-    .right  { transform: rotateY(90deg) translateZ(80px); }
-    .footer-content { flex-direction: column; gap: 20px; text-align: center; }
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
 }
