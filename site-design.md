@@ -56,5 +56,24 @@ This document outlines the design principles, technical specifications, and styl
 - **Founding AI Engineer & Co-founder**: Nilesh Sarkar (AI Architecture, Engineering).
 - **Contact**: veerneostudio@gmail.com
 
+## 8. Project Structure
+```
+/
+├── assets/
+│   ├── css/
+│   │   └── index.css
+│   ├── images/
+│   │   ├── Garima.png
+│   │   └── Nilesh.png
+│   └── js/
+│       └── index.js
+├── about.html
+├── contact.html
+├── index.html
+├── privacy.html
+├── solutions.html
+└── technology.html
+```
+
 ---
 *Maintained by the VeerNeo Founding Team.*
