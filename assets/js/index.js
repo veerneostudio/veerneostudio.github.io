@@ -1,71 +1,361 @@
-// VeerNeo — Refined Intelligence
+// VeerNeo — Generative 3D Intelligence
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Intersection Observer for Reveal animations
-    const revealOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+    // --- GSAP Plugins ---
+    gsap.registerPlugin(ScrollTrigger);
+
+    // --- Core Modules ---
+    
+    /**
+     * Mobile Navigation Toggle
+     */
+    const initMobileNav = () => {
+        const toggle = document.querySelector('.nav-toggle');
+        const links = document.querySelector('.nav-links');
+        
+        if (!toggle || !links) return;
+
+        toggle.addEventListener('click', () => {
+            links.classList.toggle('mobile-active');
+            // Toggle hamburger animation
+            toggle.classList.toggle('active');
+            document.body.style.overflow = links.classList.contains('mobile-active') ? 'hidden' : '';
+        });
+
+        // Close when clicking links
+        links.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                links.classList.remove('mobile-active');
+                toggle.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
     };
 
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                revealObserver.unobserve(entry.target);
+    /**
+     * Staggered Scroll Animations (Apple-like)
+     */
+    const initScrollAnimations = () => {
+        // Target all text-heavy elements and blocks
+        const elements = document.querySelectorAll(
+            '.eyebrow, .reveal, .large-p, .bento-item, h1, h2, h3, h4, h5, p, .hero-stats div, .contact-method, .stat-pill'
+        );
+        
+        elements.forEach(el => {
+            // Ensure they are hidden initially if not already handled by CSS
+            if (!el.classList.contains('reveal') && !el.classList.contains('large-p')) {
+                gsap.set(el, { opacity: 0, y: 30 });
             }
+
+            gsap.to(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 90%",
+                    toggleActions: "play none none none"
+                },
+                y: 0,
+                opacity: 1,
+                duration: 1.2,
+                ease: "power4.out"
+            });
         });
-    }, revealOptions);
 
-    // Apply reveal to sections and items
-    document.querySelectorAll('.reveal, .bento-item, .feature-item, .team-member').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 1s cubic-bezier(0.2, 0.8, 0.2, 1)';
-        revealObserver.observe(el);
-    });
-
-    // Dynamic style addition for active state
-    const style = document.createElement('style');
-    style.textContent = `
-        .active {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Smooth scroll for nav links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const headerOffset = 48;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
+        // Special entrance for 3d containers
+        gsap.from('.demo-visual', {
+            scrollTrigger: {
+                trigger: '.demo-section',
+                start: "top 70%",
+            },
+            scale: 0.95,
+            opacity: 0,
+            duration: 1.5,
+            ease: "power3.out"
         });
-    });
+    };
 
-    // Product Visual Parallax effect
-    window.addEventListener('scroll', () => {
-        const visual = document.querySelector('.product-visual');
-        if (visual) {
-            const speed = 0.05;
-            const rect = visual.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                const yPos = -(rect.top * speed);
-                visual.style.transform = `translateY(${yPos}px)`;
-            }
+    /**
+     * Hero 3D Scene
+     */
+    const initHero3D = () => {
+        const container = document.getElementById('hero-canvas-container');
+        if (!container) return;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.innerHTML = '';
+        container.appendChild(renderer.domElement);
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        // Particle System Configuration
+        const particleCount = 200;
+        const particles = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const targetPositions = new Float32Array(particleCount * 3);
+        const initialPositions = new Float32Array(particleCount * 3);
+        const velocities = [];
+
+        // Generate initial random field
+        for(let i = 0; i < particleCount; i++) {
+            const x = (Math.random() - 0.5) * 10;
+            const y = (Math.random() - 0.5) * 10;
+            const z = (Math.random() - 0.5) * 10;
+            positions[i*3] = initialPositions[i*3] = x;
+            positions[i*3+1] = initialPositions[i*3+1] = y;
+            positions[i*3+2] = initialPositions[i*3+2] = z;
+            velocities.push(new THREE.Vector3((Math.random() - 0.5) * 0.01, (Math.random() - 0.5) * 0.01, (Math.random() - 0.5) * 0.01));
         }
-    });
 
-    console.log('%c VeerNeo ', 'background: #0066cc; color: #fff; font-size: 20px; font-weight: bold; border-radius: 4px; padding: 4px 8px;');
-    console.log('Generative AI for 3D Modeling');
-    console.log('Founded at DSU Bangalore by Garima & Nilesh');
+        particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const pointCloud = new THREE.Points(particles, new THREE.PointsMaterial({ size: 0.04, color: 0xffffff }));
+        group.add(pointCloud);
+
+        // CAD Concept Geometry Generator
+        const generateTarget = (type) => {
+            const pts = [];
+            if(type === 'cube') {
+                for(let i = 0; i < particleCount; i++) {
+                    pts.push((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4);
+                }
+            } else if(type === 'sphere') {
+                for(let i = 0; i < particleCount; i++) {
+                    const phi = Math.acos(-1 + (2 * i) / particleCount);
+                    const theta = Math.sqrt(particleCount * Math.PI) * phi;
+                    pts.push(
+                        2.5 * Math.cos(theta) * Math.sin(phi),
+                        2.5 * Math.sin(theta) * Math.sin(phi),
+                        2.5 * Math.cos(phi)
+                    );
+                }
+            } else { // Wireframe CAD bits
+                for(let i = 0; i < particleCount; i++) {
+                    pts.push((Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10);
+                }
+            }
+            return new Float32Array(pts);
+        };
+
+        let currentTarget = generateTarget('sphere');
+        let lerpFactor = 0;
+
+        // Line Segments for Plexus Effect (Forming CAD structures)
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.1 });
+        const lineGeometry = new THREE.BufferGeometry();
+        const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+        group.add(lineMesh);
+
+        scene.add(new THREE.PointLight(0xffffff, 5, 20));
+        scene.add(new THREE.AmbientLight(0x000000, 0.1));
+
+        camera.position.z = 6;
+
+        const animate = () => {
+            requestAnimationFrame(animate);
+            lerpFactor += 0.005;
+            if(lerpFactor > 2) {
+                lerpFactor = 0;
+                currentTarget = generateTarget(Math.random() > 0.5 ? 'sphere' : 'cube');
+            }
+            
+            // Movement logic
+            const posAttr = particles.getAttribute('position');
+            const linePositions = [];
+            
+            for(let i = 0; i < particleCount; i++) {
+                // Morph towards target
+                const targetX = currentTarget[i*3];
+                const targetY = currentTarget[i*3+1];
+                const targetZ = currentTarget[i*3+2];
+
+                posAttr.array[i*3] += (targetX - posAttr.array[i*3]) * 0.01 + velocities[i].x;
+                posAttr.array[i*3+1] += (targetY - posAttr.array[i*3+1]) * 0.01 + velocities[i].y;
+                posAttr.array[i*3+2] += (targetZ - posAttr.array[i*3+2]) * 0.01 + velocities[i].z;
+
+                // Draw lines between neighbors (PLEXUS) - distance logic
+                for(let j = i + 1; j < particleCount; j++) {
+                    const dx = posAttr.array[i*3] - posAttr.array[j*3];
+                    const dy = posAttr.array[i*3+1] - posAttr.array[j*3+1];
+                    const dz = posAttr.array[i*3+2] - posAttr.array[j*3+2];
+                    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+                    
+                    if(dist < 1.5) {
+                        linePositions.push(posAttr.array[i*3], posAttr.array[i*3+1], posAttr.array[i*3+2]);
+                        linePositions.push(posAttr.array[j*3], posAttr.array[j*3+1], posAttr.array[j*3+2]);
+                    }
+                }
+            }
+            
+            posAttr.needsUpdate = true;
+            lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+            
+            group.rotation.y += 0.002;
+            group.rotation.x += 0.001;
+            renderer.render(scene, camera);
+        };
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+    };
+
+    /**
+     * Demo 3D Scene Controller
+     */
+    let switchDemoModel = () => {};
+    let globalTime = 0;
+
+    const initDemo3D = () => {
+        const container = document.getElementById('demo-canvas-container');
+        if (!container) return;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.innerHTML = '';
+        container.appendChild(renderer.domElement);
+
+        const modelGroup = new THREE.Group();
+        scene.add(modelGroup);
+
+        const mats = {
+            solid: new THREE.MeshPhongMaterial({ color: 0x010101, specular: 0xffffff, shininess: 120 }),
+            wire: new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.3 }),
+            glow: new THREE.MeshPhongMaterial({ color: 0x000000, emissive: 0xffffff, emissiveIntensity: 0.8, transparent: true, opacity: 0.9 })
+        };
+
+        let currentParts = [];
+
+        const updateModel = (index) => {
+            modelGroup.clear();
+            currentParts = [];
+            
+            // Model Factories
+            const addPart = (mesh, type, params = {}) => {
+                modelGroup.add(mesh);
+                currentParts.push({ mesh, type, ...params });
+                // Automatically add wireframe
+                const wire = new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry), mats.wire);
+                mesh.add(wire);
+            };
+
+            switch(index % 6) {
+                case 0: // Gears
+                    const g1 = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.2, 16, 32), mats.solid);
+                    addPart(g1, 'rotate', { speed: 0.02 });
+                    break;
+                case 1: // Gripper
+                    const base = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), mats.solid);
+                    const finger = new THREE.Mesh(new THREE.BoxGeometry(0.1, 1, 0.3), mats.solid);
+                    finger.position.y = 0.5;
+                    addPart(base, 'none');
+                    addPart(finger, 'osc', { axis: 'y', range: 0.5 });
+                    break;
+                case 2: // Drone
+                    const frame = new THREE.Mesh(new THREE.BoxGeometry(2, 0.05, 0.05), mats.solid);
+                    addPart(frame, 'rotate', { speed: 0.01 });
+                    break;
+                case 3: // Joint
+                    const s1 = new THREE.Mesh(new THREE.SphereGeometry(0.5), mats.glow);
+                    addPart(s1, 'pulse');
+                    break;
+                case 4: // Leg
+                    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 1.5), mats.solid);
+                    addPart(leg, 'osc', { axis: 'z', range: 0.7 });
+                    break;
+                case 5: // Bracket
+                    const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(0.6, 0.2, 100, 16), mats.glow);
+                    addPart(knot, 'rotate', { speed: 0.01 });
+                    break;
+            }
+
+            modelGroup.scale.set(0,0,0);
+            gsap.to(modelGroup.scale, { x: 1, y: 1, z: 1, duration: 0.5, ease: "back.out" });
+        };
+
+        switchDemoModel = updateModel;
+
+        scene.add(new THREE.DirectionalLight(0xffffff, 0.5).position.set(5,5,5));
+        scene.add(new THREE.PointLight(0xffffff, 4, 10).position.set(-2,2,2));
+        
+        camera.position.z = 4;
+
+        const animate = () => {
+            requestAnimationFrame(animate);
+            globalTime += 0.05;
+            
+            currentParts.forEach(p => {
+                if(p.type === 'rotate') p.mesh.rotation.y += p.speed;
+                if(p.type === 'osc') p.mesh.rotation[p.axis] = Math.sin(globalTime) * p.range;
+                if(p.type === 'pulse') p.mesh.scale.setScalar(1 + Math.sin(globalTime) * 0.1);
+            });
+
+            modelGroup.rotation.y += 0.005;
+            renderer.render(scene, camera);
+        };
+        animate();
+
+        const handleResize = () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        };
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        updateModel(0);
+    };
+
+    /**
+     * Typewriter Engine
+     */
+    const initTypewriter = () => {
+        const el = document.getElementById('demo-prompt');
+        if (!el) return;
+
+        const phrases = [
+            "Generate a high-torque planetary gear system...",
+            "Design a 3-axis robotic gripper end-effector...",
+            "Optimize a carbon fiber UAV racing frame...",
+            "Model a high-speed robotic actuator joint...",
+            "Synthesize a bionic quadruped leg linkage...",
+            "Create a topologically optimized aerospace bracket..."
+        ];
+
+        let i = 0, j = 0, isDeleting = false;
+
+        const tick = () => {
+            const full = phrases[i];
+            el.textContent = isDeleting ? full.substring(0, j--) : full.substring(0, j++);
+
+            let speed = isDeleting ? 40 : 80;
+            if (!isDeleting && j === full.length + 1) {
+                isDeleting = true;
+                speed = 2000;
+            } else if (isDeleting && j === 0) {
+                isDeleting = false;
+                i = (i + 1) % phrases.length;
+                switchDemoModel(i);
+                speed = 500;
+            }
+            setTimeout(tick, speed);
+        };
+        tick();
+    };
+
+    // --- Boot ---
+    initHero3D();
+    initDemo3D();
+    initTypewriter();
+    initScrollAnimations();
+    initMobileNav();
 });

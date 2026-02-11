@@ -6,6 +6,10 @@
     <title>VeerNeo — 3D Intelligence. Refined.</title>
     <link rel="stylesheet" href="assets/css/index.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 3D and Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
     <nav class="global-nav">
@@ -14,20 +18,25 @@
                 <div class="logo-icon">
                     <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20 30L50 85L80 30L50 50L20 30Z" fill="url(#logo-grad)" />
-                        <path d="M20 30L50 85L80 30L50 50L20 30Z" stroke="white" stroke-width="2" stroke-linejoin="round" />
-                        <circle cx="20" cy="30" r="4" fill="#0066cc" />
-                        <circle cx="80" cy="30" r="4" fill="#0066cc" />
-                        <circle cx="50" cy="85" r="4" fill="#00d9ff" />
+                        <path d="M20 30L50 85L80 30L50 50L20 30Z" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" />
+                        <circle cx="20" cy="30" r="4" fill="#ffffff" />
+                        <circle cx="80" cy="30" r="4" fill="#ffffff" />
+                        <circle cx="50" cy="85" r="4" fill="#888888" />
                         <defs>
                             <linearGradient id="logo-grad" x1="20" y1="30" x2="80" y2="85" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#0066cc"/>
-                                <stop offset="1" stop-color="#00d9ff"/>
+                                <stop stop-color="#ffffff"/>
+                                <stop offset="1" stop-color="#333333"/>
                             </linearGradient>
                         </defs>
                     </svg>
                 </div>
                 <span>VeerNeo</span>
             </a>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <div class="nav-links">
                 <a href="technology.html">Technology</a>
                 <a href="solutions.html">Solutions</a>
@@ -39,19 +48,18 @@
 
     <main>
         <header class="page-header">
+            <!-- Floating 3D Concepts -->
+            <div class="floating-concept c1">⚙️</div>
+            <div class="floating-concept c2">🔋</div>
+            <div class="floating-concept c3">🦾</div>
+            <div class="floating-concept c4">🚁</div>
+
             <div class="section-content">
-                <span class="eyebrow">Innovation DNA</span>
                 <h1 class="reveal">Prompt to CAD. <br>Idea to Reality.</h1>
                 
-                <div class="scene-3d">
-                    <div class="cube">
-                        <div class="face front">VEERNEO</div>
-                        <div class="face back">PROMPT</div>
-                        <div class="face right">3D</div>
-                        <div class="face left">CAD</div>
-                        <div class="face top">GEN</div>
-                        <div class="face bottom">STEP</div>
-                    </div>
+                <div id="hero-canvas-container" class="scene-3d-webgl">
+                    <!-- Three.js will inject canvas here -->
+                    <div class="loader-fallback">Initializing Neural Engine...</div>
                 </div>
 
                 <p class="large-p">A proprietary AI engine that converts natural language into production-ready parametric CAD geometry.</p>
@@ -63,26 +71,59 @@
             </div>
         </header>
 
+        <section class="demo-section">
+            <div class="section-content">
+                <div class="demo-container">
+                    <div class="demo-text">
+                        <h2 class="reveal">Talk to your Tools.</h2>
+                        <p>Speak or type your design intent. VeerNeo's inference engine interprets constraints and generates editable geometry in real-time.</p>
+                        <div class="prompt-box">
+                            <div class="prompt-input" id="demo-prompt">"Create a 20-tooth spur gear with a 50mm pitch diameter..."</div>
+                            <div class="prompt-cursor"></div>
+                        </div>
+                    </div>
+                    <div class="demo-visual" id="demo-canvas-container">
+                        <!-- Three.js Interactive Component -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="section-content">
             <span class="eyebrow">Capabilities</span>
             <h2 class="reveal">Intelligence at Every Vertex.</h2>
             <div class="bento-grid">
                 <div class="bento-item large accent">
-                    <h4>Generative 3D Mesh</h4>
-                    <p>High-density vertices generated from natural language, optimized for real-time engines.</p>
+                    <h4>Physics-Aware Generative 3D</h4>
+                    <p>VeerNeo doesn't just generate shapes; it understands physics. Design robotics components that are inherently optimized for stress, strain, and load-bearing requirements.</p>
+                    <a href="solutions.html" class="contact-button" style="margin-top: 24px;">Explore Robotics</a>
                 </div>
                 <div class="bento-item">
-                    <h4>CAD Integrity</h4>
-                    <p>Export to solid modeling formats without losing precision.</p>
+                    <h4>FEA & Stress Simulation</h4>
+                    <p>Identify failure points before they exist. Real-time stress/strain mapping directly on your generated CAD geometry.</p>
                 </div>
                 <div class="bento-item">
-                    <h4>WebGPU Ready</h4>
-                    <p>Experience ultra-fast rendering directly in the browser.</p>
+                    <h4>Robotics & Kinematics</h4>
+                    <p>Generate complex linkages, actuators, and drone frames with parametric constraints. Prompt-driven mechanical engineering.</p>
+                </div>
+                <div class="bento-item large accent">
+                    <h4>Manufacturing Ready</h4>
+                    <p>Export directly to industry-standard STEP and IGES formats. No manual cleanup, no mesh artifacts—just pure engineering data.</p>
+                    <a href="contact.html" class="contact-button" style="margin-top: 24px;">Get Started</a>
                 </div>
                 <div class="bento-item large">
-                    <h4>The AI Agent for 3D</h4>
-                    <p>VeerNeo doesn't just model; it understands geometry. Iterate faster by talking to your mesh.</p>
+                    <h4>Neural Engine for Engineers</h4>
+                    <p>From topological optimization to multi-material soft robotics, VeerNeo provides a full-stack AI workspace for rapid hardware development.</p>
                 </div>
+            </div>
+        </section>
+
+        <section class="section-content" style="text-align: center; border-top: 1px solid var(--border-color);">
+            <h2 class="reveal" style="font-size: clamp(32px, 5vw, 64px);">Ready to transform your workflow?</h2>
+            <p class="large-p" style="margin-bottom: 40px;">Join the elite engineers using VeerNeo to bridge the gap between prompt and production.</p>
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <a href="contact.html" class="contact-button">Contact Engineering</a>
+                <a href="https://www.linkedin.com/company/veerneo/posts/?feedView=all" target="_blank" class="contact-button" style="background: transparent; color: white;">Follow on LinkedIn</a>
             </div>
         </section>
     </main>
@@ -103,7 +144,6 @@
                 <div class="footer-col">
                     <h5>Social</h5>
                     <a href="https://www.linkedin.com/company/veerneo/posts/?feedView=all" target="_blank">LinkedIn</a>
-                    <a href="alcena.html">Alcena</a>
                 </div>
                 <div class="footer-col">
                     <h5>Legal</h5>

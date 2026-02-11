@@ -14,14 +14,14 @@
                 <div class="logo-icon">
                     <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20 30L50 85L80 30L50 50L20 30Z" fill="url(#logo-grad)" />
-                        <path d="M20 30L50 85L80 30L50 50L20 30Z" stroke="white" stroke-width="2" stroke-linejoin="round" />
-                        <circle cx="20" cy="30" r="4" fill="#0066cc" />
-                        <circle cx="80" cy="30" r="4" fill="#0066cc" />
-                        <circle cx="50" cy="85" r="4" fill="#00d9ff" />
+                        <path d="M20 30L50 85L80 30L50 50L20 30Z" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" />
+                        <circle cx="20" cy="30" r="4" fill="#ffffff" />
+                        <circle cx="80" cy="30" r="4" fill="#ffffff" />
+                        <circle cx="50" cy="85" r="4" fill="#888888" />
                         <defs>
                             <linearGradient id="logo-grad" x1="20" y1="30" x2="80" y2="85" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#0066cc"/>
-                                <stop offset="1" stop-color="#00d9ff"/>
+                                <stop stop-color="#ffffff"/>
+                                <stop offset="1" stop-color="#333333"/>
                             </linearGradient>
                         </defs>
                     </svg>
@@ -39,41 +39,58 @@
 
     <header class="page-header">
         <div class="section-content">
-            <span class="eyebrow">Our Story</span>
+            <span class="eyebrow">Our Vision</span>
             <h1 class="reveal">Prompt the Physical World.</h1>
-            <p class="large-p">Born in the labs of Dayananda Sagar University, VeerNeo is redefining how humans interface with engineering software through natural language CAD generation.</p>
+            <p class="large-p">Born in the engineering labs of Dayananda Sagar University, VeerNeo is bridging the gap between high-level intent and production-ready hardware.</p>
         </div>
     </header>
 
     <main class="section-content">
-        <section style="margin-bottom: 120px; text-align: center;">
-            <div class="bento-item" style="max-width: 800px; margin: 0 auto; background: var(--apple-bg-secondary); border: 1px solid var(--apple-border); padding: 60px 40px; border-radius: 32px;">
-                <span class="eyebrow">The Vision</span>
-                <h2 style="font-size: 32px; margin-bottom: 24px; letter-spacing: -1px;">Zero Friction Modeling.</h2>
-                <p style="font-size: 19px; color: var(--apple-text-secondary); line-height: 1.6;">Technical complexity should never be a barrier to creativity. We believe that an idea can be translated into a manufacturing-ready STEP file with a single sentence. By combining LLMs with parametric geometric kernels, we're removing the barriers between imagination and reality.</p>
+        <section style="margin-bottom: 120px;">
+            <div class="bento-grid">
+                <div class="bento-item large accent">
+                    <h4>The Mission</h4>
+                    <p>To enable a future where any engineer can iterate at the speed of thought. We're building the neural bridge between creative imagination and physical manufacturing.</p>
+                </div>
+                <div class="bento-item">
+                    <h4>Precision</h4>
+                    <p>Moving from polygonal approximations to exact B-Rep geometry generated through neural inference.</p>
+                </div>
+                <div class="bento-item">
+                    <h4>Physics First</h4>
+                    <p>Simulation isn't an afterthought; it's the core of how our engine understands 3D space.</p>
+                </div>
             </div>
         </section>
 
-        <span class="eyebrow" style="text-align: center; display: block; margin-bottom: 40px;">Founders</span>
+        <h2 class="reveal" style="text-align: center; margin-bottom: 48px;">The Founders</h2>
         <div class="team-grid">
-            <div class="team-card">
-                <img src="assets/images/Garima.png" alt="Garima Varma" class="founder-img">
-                <span class="eyebrow">CEO & Co-Founder</span>
-                <h3 style="font-size: 24px; margin-bottom: 8px;">Garima Varma</h3>
-                <p style="color: var(--apple-text-secondary); margin-bottom: 24px;">Strategy & Operations</p>
-                <div class="team-links">
-                    <a href="https://www.linkedin.com/in/garima-varma04/" target="_blank">LinkedIn</a>
-                    <a href="https://garima040106.github.io/" target="_blank">Portfolio</a>
+            <div class="team-card accent">
+                <div class="founder-img-container">
+                    <img src="assets/images/Garima.png" alt="Garima Varma" class="founder-img">
+                </div>
+                <div class="team-info">
+                    <span class="eyebrow">CEO & Co-Founder</span>
+                    <h3>Garima Varma</h3>
+                    <p>Driving strategy and the vision for generative manufacturing.</p>
+                    <div class="team-links">
+                        <a href="https://www.linkedin.com/in/garima-varma04/" target="_blank">LinkedIn</a>
+                        <a href="https://garima040106.github.io/" target="_blank">Portfolio</a>
+                    </div>
                 </div>
             </div>
-            <div class="team-card">
-                <img src="assets/images/Nilesh.png" alt="Nilesh Sarkar" class="founder-img">
-                <span class="eyebrow">Founding Engineer & Co-Founder</span>
-                <h3 style="font-size: 24px; margin-bottom: 8px;">Nilesh Sarkar</h3>
-                <p style="color: var(--apple-text-secondary); margin-bottom: 24px;">AI Architecture & Systems</p>
-                <div class="team-links">
-                    <a href="https://www.linkedin.com/in/nilesh-sarkar-4137b428b/" target="_blank">LinkedIn</a>
-                    <a href="https://nileshsarkarra.github.io" target="_blank">Portfolio</a>
+            <div class="team-card accent">
+                <div class="founder-img-container">
+                    <img src="assets/images/Nilesh.png" alt="Nilesh Sarkar" class="founder-img">
+                </div>
+                <div class="team-info">
+                    <span class="eyebrow">CTO & Co-Founder</span>
+                    <h3>Nilesh Sarkar</h3>
+                    <p>Architecting the AI framework for parametric 3D intelligence.</p>
+                    <div class="team-links">
+                        <a href="https://www.linkedin.com/in/nilesh-sarkar-4137b428b/" target="_blank">LinkedIn</a>
+                        <a href="https://nileshsarkarra.github.io" target="_blank">Portfolio</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -95,7 +112,6 @@
                 <div class="footer-col">
                     <h5>Social</h5>
                     <a href="https://www.linkedin.com/company/veerneo/posts/?feedView=all" target="_blank">LinkedIn</a>
-                    <a href="alcena.html">Alcena</a>
                 </div>
                 <div class="footer-col">
                     <h5>Legal</h5>
