@@ -58,6 +58,7 @@ body {
     z-index: 2000;
     display: flex;
     align-items: center;
+    overflow: visible; /* Prevents burger clipping */
 }
 
 .nav-content {
@@ -68,6 +69,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0 32px;
+    overflow: visible;
 }
 
 .nav-logo {
@@ -79,6 +81,7 @@ body {
     font-weight: 600;
     font-size: 20px;
     z-index: 2001;
+    min-width: fit-content;
 }
 
 .logo-icon {
@@ -112,7 +115,7 @@ body {
     color: var(--accent-blue);
 }
 
-.nav-cta {
+.nav-links a.nav-cta {
     background: #ffffff !important;
     color: #000000 !important;
     padding: 8px 22px !important;
@@ -175,9 +178,10 @@ h1, h2, h3, h4, h5 {
     background: linear-gradient(180deg, #fff 0%, #86868b 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1; /* Changed to 1 to prevent invisibility if JS fails */
+    transform: translateY(0);
+    overflow: visible; /* Ensure headings don't cut off */
+    padding-bottom: 10px;
 }
 
 .large-p {
@@ -185,9 +189,8 @@ h1, h2, h3, h4, h5 {
     color: var(--text-secondary);
     max-width: 800px;
     margin: 0 auto;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    opacity: 1; /* Changed to 1 */
+    transform: translateY(0);
 }
 
 .hero-stats {
@@ -222,7 +225,7 @@ h1, h2, h3, h4, h5 {
     width: 60px;
     height: 60px;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -231,8 +234,19 @@ h1, h2, h3, h4, h5 {
     box-shadow: var(--deep-shadow);
     animation: float 6s ease-in-out infinite;
     pointer-events: none;
-    z-index: 5;
+    z-index: 0; /* Behind text */
     backdrop-filter: blur(10px);
+    opacity: 0.4;
+    transition: opacity 0.5s ease;
+}
+
+@media (max-width: 768px) {
+    .floating-concept {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        opacity: 0.2;
+    }
 }
 
 .floating-concept.c1 { top: 20%; left: 10%; animation-delay: 0s; }
@@ -699,7 +713,7 @@ h1, h2, h3, h4, h5 {
         justify-content: center;
         align-items: center;
         gap: 32px;
-        transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         z-index: 999;
         display: flex; /* Always display flex but hide off-screen */
     }
@@ -708,11 +722,17 @@ h1, h2, h3, h4, h5 {
     }
     .nav-links a {
         color: #ffffff !important;
-        font-size: 28px;
+        font-size: 24px;
         font-weight: 700;
         opacity: 0.8;
         transform: translateY(20px);
-        transition: all 0.4s ease;
+        transition: all 0.3s ease;
+    }
+    .nav-links a.nav-cta {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 20px;
+        padding: 12px 40px !important;
     }
     .nav-links.mobile-active a {
         opacity: 1;
@@ -727,28 +747,28 @@ h1, h2, h3, h4, h5 {
         flex-direction: column;
         justify-content: center;
         gap: 6px;
-        width: 30px;
-        height: 30px;
+        width: 32px;
+        height: 32px;
         cursor: pointer;
         z-index: 1001;
+        padding: 4px; /* Ensure not cut off */
     }
     
     .nav-toggle span {
         width: 100%;
         height: 2px;
-        background-color: var(--accent-blue) !important; /* White Toggle */
+        background-color: #ffffff !important; /* White Toggle */
         transition: all 0.3s ease;
-        box-shadow: var(--soft-glow);
     }
     
     .nav-toggle.active span:nth-child(1) {
-        transform: translateY(3px) rotate(45deg);
+        transform: translateY(8px) rotate(45deg);
     }
     .nav-toggle.active span:nth-child(2) {
         opacity: 0;
     }
     .nav-toggle.active span:nth-child(3) {
-        transform: translateY(-3px) rotate(-45deg);
+        transform: translateY(-8px) rotate(-45deg);
     }
 
     .section-content {
@@ -756,11 +776,13 @@ h1, h2, h3, h4, h5 {
     }
     header.page-header {
         padding: 100px 20px 40px;
+        overflow: hidden; /* Prevent floating items from cutting out */
     }
     .reveal {
-        font-size: clamp(52px, 12vw, 72px);
-        letter-spacing: -2px;
-        line-height: 0.9;
+        font-size: clamp(42px, 10vw, 64px);
+        letter-spacing: -1px;
+        line-height: 1.1;
+        padding-bottom: 10px; /* Space for descenders */
     }
     .large-p {
         font-size: 20px;

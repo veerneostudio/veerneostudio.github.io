@@ -42,19 +42,20 @@ document.addEventListener('DOMContentLoaded', () => {
         );
         
         elements.forEach(el => {
-            gsap.set(el, { opacity: 0, y: 40 });
+            // Snappier initial state
+            gsap.set(el, { opacity: 0, y: 15 });
 
             gsap.to(el, {
                 scrollTrigger: {
                     trigger: el,
-                    start: "top 92%",
+                    start: "top 95%", 
                     toggleActions: "play none none none"
                 },
                 y: 0,
                 opacity: 1,
-                duration: 1.4,
-                ease: "power3.out",
-                stagger: 0.1
+                duration: 0.6, // Very snappy
+                ease: "power2.out",
+                stagger: 0.02
             });
         });
 
@@ -62,11 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
         gsap.from('.demo-visual', {
             scrollTrigger: {
                 trigger: '.demo-section',
-                start: "top 70%",
+                start: "top 85%",
             },
             scale: 0.98,
             opacity: 0,
-            duration: 1.8,
+            duration: 1.0,
             ease: "expo.out"
         });
     };
@@ -118,7 +119,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const pts = [];
             if(type === 'cube') {
                 for(let i = 0; i < particleCount; i++) {
-                    pts.push((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4);
+                    const x = (Math.random() - 0.5) * 4;
+                    const y = (Math.random() - 0.5) * 4;
+                    const z = (Math.random() - 0.5) * 4;
+                    pts.push(Math.round(x * 1.5), Math.round(y * 1.5), Math.round(z * 1.5));
+                }
+            } else if(type === 'gear') { // Spur Gear Wireframe
+                for(let i = 0; i < particleCount; i++) {
+                    const angle = (i / particleCount) * Math.PI * 2;
+                    const radius = i % 10 < 5 ? 2.5 : 2; // Teeth
+                    pts.push(Math.cos(angle) * radius, Math.sin(angle) * radius, (Math.random() - 0.5) * 0.5);
                 }
             } else if(type === 'sphere') {
                 for(let i = 0; i < particleCount; i++) {
@@ -130,7 +140,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         2.5 * Math.cos(phi)
                     );
                 }
-            } else { // Wireframe CAD bits
+            } else if(type === 'bracket') { // U-shape bracket
+                for(let i = 0; i < particleCount; i++) {
+                    const side = Math.random() > 0.5 ? 1 : -1;
+                    if(i < particleCount * 0.6) { // Base curve
+                        const t = (Math.random() * Math.PI);
+                        pts.push(Math.cos(t) * 2, Math.sin(t) * 2, (Math.random() - 0.5) * 2);
+                    } else { // Walls
+                        pts.push(side * 2, (Math.random() - 0.5) * 4, (Math.random() - 0.5) * 2);
+                    }
+                }
+            } else { // High-density grid bits
                 for(let i = 0; i < particleCount; i++) {
                     pts.push((Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10);
                 }
@@ -140,24 +160,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let currentTarget = generateTarget('sphere');
         let lerpFactor = 0;
+        const targetTypes = ['sphere', 'gear', 'cube', 'bracket', 'random'];
+        let typeIndex = 0;
 
         // Line Segments for Plexus Effect (Forming CAD structures)
-        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.1 });
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.2 });
         const lineGeometry = new THREE.BufferGeometry();
         const lineMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
         group.add(lineMesh);
 
         scene.add(new THREE.PointLight(0xffffff, 5, 20));
-        scene.add(new THREE.AmbientLight(0x000000, 0.1));
+        scene.add(new THREE.AmbientLight(0xffffff, 0.1));
 
-        camera.position.z = 6;
+        camera.position.z = 7; // Further back to prevent overlap
 
         const animate = () => {
             requestAnimationFrame(animate);
-            lerpFactor += 0.005;
-            if(lerpFactor > 2) {
+            lerpFactor += 0.01;
+            if(lerpFactor > 4) { // Longer hold on shapes
                 lerpFactor = 0;
-                currentTarget = generateTarget(Math.random() > 0.5 ? 'sphere' : 'cube');
+                typeIndex = (typeIndex + 1) % targetTypes.length;
+                currentTarget = generateTarget(targetTypes[typeIndex]);
             }
             
             // Movement logic
@@ -170,18 +193,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 const targetY = currentTarget[i*3+1];
                 const targetZ = currentTarget[i*3+2];
 
-                posAttr.array[i*3] += (targetX - posAttr.array[i*3]) * 0.01 + velocities[i].x;
-                posAttr.array[i*3+1] += (targetY - posAttr.array[i*3+1]) * 0.01 + velocities[i].y;
-                posAttr.array[i*3+2] += (targetZ - posAttr.array[i*3+2]) * 0.01 + velocities[i].z;
+                posAttr.array[i*3] += (targetX - posAttr.array[i*3]) * 0.04 + velocities[i].x;
+                posAttr.array[i*3+1] += (targetY - posAttr.array[i*3+1]) * 0.04 + velocities[i].y;
+                posAttr.array[i*3+2] += (targetZ - posAttr.array[i*3+2]) * 0.04 + velocities[i].z;
 
                 // Draw lines between neighbors (PLEXUS) - distance logic
                 for(let j = i + 1; j < particleCount; j++) {
                     const dx = posAttr.array[i*3] - posAttr.array[j*3];
                     const dy = posAttr.array[i*3+1] - posAttr.array[j*3+1];
                     const dz = posAttr.array[i*3+2] - posAttr.array[j*3+2];
-                    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+                    const distSq = dx*dx + dy*dy + dz*dz;
                     
-                    if(dist < 1.5) {
+                    if(distSq < 2.5) { // More connections
                         linePositions.push(posAttr.array[i*3], posAttr.array[i*3+1], posAttr.array[i*3+2]);
                         linePositions.push(posAttr.array[j*3], posAttr.array[j*3+1], posAttr.array[j*3+2]);
                     }
@@ -191,8 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
             posAttr.needsUpdate = true;
             lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
             
-            group.rotation.y += 0.002;
-            group.rotation.x += 0.001;
+            group.rotation.y += 0.005;
+            group.rotation.x += 0.002;
             renderer.render(scene, camera);
         };
         animate();
