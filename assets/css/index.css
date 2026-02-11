@@ -19,6 +19,7 @@
     /* Macbook Pro Depth Shadows */
     --deep-shadow: 0 50px 100px -20px rgba(0,0,0,0.5), 0 30px 60px -30px rgba(0,0,0,0.6);
     --soft-glow: 0 0 40px rgba(255,255,255,0.05);
+    --metallic-gradient: linear-gradient(135deg, #ffffff 0%, #86868b 100%);
 }
 
 /* --- Base Styles --- */
@@ -275,6 +276,28 @@ h1, h2, h3, h4, h5 {
     overflow: hidden;
 }
 
+.latency-indicator {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.latency-indicator::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+    box-shadow: 0 0 10px currentColor;
+}
+
 .demo-visual canvas {
     width: 100% !important;
     height: 100% !important;
@@ -498,37 +521,6 @@ h1, h2, h3, h4, h5 {
 .bento-item.accent { background: var(--apple-blue); color: white; border: none; }
 .bento-item.accent h4, .bento-item.accent p { color: white; }
 
-.team-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-}
-
-.team-card {
-    background: var(--apple-bg-secondary);
-    padding: 60px 40px;
-    border-radius: 28px;
-    text-align: center;
-    border: 1px solid var(--apple-border);
-}
-
-.team-card:hover .founder-img {
-    transform: scale(1.05);
-}
-
-.founder-img {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    margin: 0 auto 24px;
-    object-fit: cover;
-    object-position: center 10%;
-    display: block;
-    background: #f5f5f7;
-    border: 1px solid var(--apple-border);
-    transition: transform 0.3s ease;
-}
-
 /* Contact Page Specific */
 .contact-grid {
     display: grid;
@@ -727,7 +719,7 @@ h1, h2, h3, h4, h5 {
         transform: translateY(0);
     }
     .nav-logo span {
-        font-size: 18px;
+        font-size: 20px;
     }
     
     .nav-toggle {

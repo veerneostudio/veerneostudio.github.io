@@ -38,25 +38,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const initScrollAnimations = () => {
         // Target all text-heavy elements and blocks
         const elements = document.querySelectorAll(
-            '.eyebrow, .reveal, .large-p, .bento-item, h1, h2, h3, h4, h5, p, .hero-stats div, .contact-method, .stat-pill'
+            '.eyebrow, .reveal, .large-p, .bento-item, h1, h2, h3, h4, h5, p, .hero-stats div, .contact-method, .stat-pill, .latency-indicator'
         );
         
         elements.forEach(el => {
-            // Ensure they are hidden initially if not already handled by CSS
-            if (!el.classList.contains('reveal') && !el.classList.contains('large-p')) {
-                gsap.set(el, { opacity: 0, y: 30 });
-            }
+            gsap.set(el, { opacity: 0, y: 40 });
 
             gsap.to(el, {
                 scrollTrigger: {
                     trigger: el,
-                    start: "top 90%",
+                    start: "top 92%",
                     toggleActions: "play none none none"
                 },
                 y: 0,
                 opacity: 1,
-                duration: 1.2,
-                ease: "power4.out"
+                duration: 1.4,
+                ease: "power3.out",
+                stagger: 0.1
             });
         });
 
@@ -66,10 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 trigger: '.demo-section',
                 start: "top 70%",
             },
-            scale: 0.95,
+            scale: 0.98,
             opacity: 0,
-            duration: 1.5,
-            ease: "power3.out"
+            duration: 1.8,
+            ease: "expo.out"
         });
     };
 
@@ -229,9 +227,20 @@ document.addEventListener('DOMContentLoaded', () => {
         scene.add(modelGroup);
 
         const mats = {
-            solid: new THREE.MeshPhongMaterial({ color: 0x010101, specular: 0xffffff, shininess: 120 }),
-            wire: new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.3 }),
-            glow: new THREE.MeshPhongMaterial({ color: 0x000000, emissive: 0xffffff, emissiveIntensity: 0.8, transparent: true, opacity: 0.9 })
+            solid: new THREE.MeshPhongMaterial({ 
+                color: 0x222222, 
+                specular: 0x444444, 
+                shininess: 100, 
+                flatShading: false 
+            }),
+            wire: new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.15 }),
+            glow: new THREE.MeshPhongMaterial({ 
+                color: 0x111111, 
+                emissive: 0xffffff, 
+                emissiveIntensity: 0.4, 
+                transparent: true, 
+                opacity: 0.8 
+            })
         };
 
         let currentParts = [];
@@ -285,10 +294,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switchDemoModel = updateModel;
 
-        scene.add(new THREE.DirectionalLight(0xffffff, 0.5).position.set(5,5,5));
-        scene.add(new THREE.PointLight(0xffffff, 4, 10).position.set(-2,2,2));
+        // Better "Medium" Lighting
+        const mainLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        mainLight.position.set(5, 10, 7.5);
+        scene.add(mainLight);
+
+        const fillLight = new THREE.PointLight(0xffffff, 0.8, 20);
+        fillLight.position.set(-5, 5, 2);
+        scene.add(fillLight);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
         
-        camera.position.z = 4;
+        camera.position.z = 4.5;
 
         const animate = () => {
             requestAnimationFrame(animate);
@@ -313,6 +331,22 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', handleResize);
         handleResize();
         updateModel(0);
+    };
+
+    /**
+     * Real-time Latency Simulation
+     */
+    const initLatencySim = () => {
+        const indicators = document.querySelectorAll('.latency-value');
+        if (!indicators.length) return;
+
+        setInterval(() => {
+            indicators.forEach(el => {
+                const base = parseFloat(el.dataset.base || 10);
+                const variance = Math.random() * 2;
+                el.textContent = (base + variance).toFixed(1);
+            });
+        }, 800);
     };
 
     /**
@@ -356,6 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initHero3D();
     initDemo3D();
     initTypewriter();
+    initLatencySim();
     initScrollAnimations();
     initMobileNav();
 });
