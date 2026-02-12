@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solutions | VeerNeo</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
     <link rel="stylesheet" href="assets/css/index.css">
     <!-- 3D and Animation Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -15,19 +16,7 @@
         <div class="nav-content">
             <a href="index.html" class="nav-logo">
                 <div class="logo-icon">
-                    <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 30L50 85L80 30L50 50L20 30Z" fill="url(#logo-grad)" />
-                        <path d="M20 30L50 85L80 30L50 50L20 30Z" stroke="#ffffff" stroke-width="2" stroke-linejoin="round" />
-                        <circle cx="20" cy="30" r="4" fill="#ffffff" />
-                        <circle cx="80" cy="30" r="4" fill="#ffffff" />
-                        <circle cx="50" cy="85" r="4" fill="#888888" />
-                        <defs>
-                            <linearGradient id="logo-grad" x1="20" y1="30" x2="80" y2="85" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#ffffff"/>
-                                <stop offset="1" stop-color="#333333"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+                    <img src="assets/images/logo.svg" alt="VeerNeo Logo" class="logo-svg">
                 </div>
                 <span>VeerNeo</span>
             </a>
@@ -46,9 +35,25 @@
     </nav>
 
     <header class="page-header">
+        <div class="hero-glow"></div>
+        <!-- Floating 3D Concepts -->
+        <div class="floating-concept c1">🏎️</div>
+        <div class="floating-concept c2">🏠</div>
+        <div class="floating-concept c3">👟</div>
+        <div class="floating-concept c4">⌚</div>
+        
         <div class="section-content">
             <span class="eyebrow">Industries</span>
             <h1 class="reveal">Built for Scale.</h1>
+            
+            <div id="solutions-canvas-container" class="scene-3d-webgl" style="height: 350px; margin: -50px 0;"></div>
+
+            <div class="hero-stats" style="margin-bottom: 40px; opacity: 1; transform: translateY(0);">
+                <div class="stat-pill">Cross-Industry</div>
+                <div class="stat-pill">Enterprise Scale</div>
+                <div class="stat-pill">Custom Kernels</div>
+            </div>
+
             <p class="large-p">From consumer electronics to modular architecture, VeerNeo removes the friction between thought and physical form.</p>
         </div>
     </header>

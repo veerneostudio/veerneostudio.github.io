@@ -462,9 +462,156 @@ document.addEventListener('DOMContentLoaded', () => {
         tick();
     };
 
+    /**
+     * Tech Stack 3D Visualizer
+     */
+    const initTech3D = () => {
+        const container = document.getElementById('tech-canvas-container');
+        if (!container) return;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        // Create a "Neural Stack" visualization
+        const layerCount = 5;
+        for(let i = 0; i < layerCount; i++) {
+            const geometry = new THREE.PlaneGeometry(8, 8, 10, 10);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: 0x00d9ff, 
+                wireframe: true, 
+                transparent: true, 
+                opacity: 0.15 - (i * 0.02)
+            });
+            const layer = new THREE.Mesh(geometry, material);
+            layer.position.y = -2 + (i * 1.5);
+            layer.rotation.x = -Math.PI / 2.5;
+            group.add(layer);
+
+            // Add some "data points" on the layers
+            for(let j = 0; j < 5; j++) {
+                const dot = new THREE.Mesh(
+                    new THREE.SphereGeometry(0.04), 
+                    new THREE.MeshBasicMaterial({ color: 0x00d9ff })
+                );
+                dot.position.set(
+                    (Math.random() - 0.5) * 6,
+                    layer.position.y + 0.1,
+                    (Math.random() - 0.5) * 6
+                );
+                group.add(dot);
+            }
+        }
+
+        camera.position.set(0, 4, 10);
+        camera.lookAt(0, 0, 0);
+
+        const animate = () => {
+            requestAnimationFrame(animate);
+            group.rotation.y += 0.002;
+            renderer.render(scene, camera);
+        };
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+    };
+
+    /**
+     * Solutions Page 3D Visualizer (Modular Growth)
+     */
+    const initSolutions3D = () => {
+        const container = document.getElementById('solutions-canvas-container');
+        if (!container) return;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        // Create a grid of modular robotic cells/boxes
+        for(let x = -1; x <= 1; x++) {
+            for(let y = -1; y <= 1; y++) {
+                const geometry = new THREE.BoxGeometry(1, 1, 1);
+                const edges = new THREE.EdgesGeometry(geometry);
+                const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x00d9ff, transparent: true, opacity: 0.4 }));
+                line.position.set(x * 1.5, y * 1.5, 0);
+                group.add(line);
+                
+                // Pulsing inner cube
+                const inner = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), new THREE.MeshBasicMaterial({ color: 0x00d9ff, transparent: true, opacity: 0.1 }));
+                inner.position.set(x * 1.5, y * 1.5, 0);
+                group.add(inner);
+            }
+        }
+
+        camera.position.z = 8;
+
+        const animate = () => {
+            requestAnimationFrame(animate);
+            group.rotation.y += 0.003;
+            group.rotation.x += 0.002;
+            group.children.forEach((child, i) => {
+                if(child.type === 'Mesh') {
+                    child.scale.setScalar(0.8 + Math.sin(Date.now() * 0.002 + i) * 0.2);
+                }
+            });
+            renderer.render(scene, camera);
+        };
+        animate();
+    };
+
+    /**
+     * About Page 3D Visualizer (The "Seed")
+     */
+    const initAbout3D = () => {
+        const container = document.getElementById('about-canvas-container');
+        if (!container) return;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        const geometry = new THREE.IcosahedronGeometry(2, 1);
+        const material = new THREE.MeshBasicMaterial({ color: 0x00d9ff, wireframe: true, transparent: true, opacity: 0.2 });
+        const seed = new THREE.Mesh(geometry, material);
+        group.add(seed);
+
+        camera.position.z = 7;
+
+        const animate = () => {
+            requestAnimationFrame(animate);
+            group.rotation.y += 0.005;
+            seed.rotation.z += 0.003;
+            renderer.render(scene, camera);
+        };
+        animate();
+    };
+
     // --- Boot ---
     initHero3D();
     initDemo3D();
+    initTech3D();
+    initSolutions3D();
+    initAbout3D();
     initTypewriter();
     initLatencySim();
     initScrollAnimations();
