@@ -282,32 +282,61 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             switch(index % 6) {
-                case 0: // Gears
-                    const g1 = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.2, 16, 32), mats.solid);
-                    addPart(g1, 'rotate', { speed: 0.02 });
+                case 0: // Planetary Gear System
+                    const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.4, 20), mats.solid);
+                    addPart(hub, 'rotate', { speed: 0.03 });
+                    for(let i = 0; i < 4; i++) {
+                        const gear = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.3, 12), mats.solid);
+                        const angle = (i / 4) * Math.PI * 2;
+                        gear.position.set(Math.cos(angle) * 1.2, 0, Math.sin(angle) * 1.2);
+                        addPart(gear, 'rotate', { speed: -0.06 });
+                    }
                     break;
-                case 1: // Gripper
-                    const base = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.5), mats.solid);
-                    const finger = new THREE.Mesh(new THREE.BoxGeometry(0.1, 1, 0.3), mats.solid);
-                    finger.position.y = 0.5;
+                case 1: // 3-Axis Gripper
+                    const base = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.4, 0.8), mats.solid);
                     addPart(base, 'none');
-                    addPart(finger, 'osc', { axis: 'y', range: 0.5 });
+                    for(let i = 0; i < 2; i++) {
+                        const finger = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.2, 0.4), mats.solid);
+                        finger.position.x = (i === 0 ? 0.4 : -0.4);
+                        finger.position.y = 0.6;
+                        addPart(finger, 'osc', { axis: 'z', range: (i === 0 ? 0.3 : -0.3) });
+                    }
                     break;
-                case 2: // Drone
-                    const frame = new THREE.Mesh(new THREE.BoxGeometry(2, 0.05, 0.05), mats.solid);
-                    addPart(frame, 'rotate', { speed: 0.01 });
+                case 2: // UAV Frame
+                    const arm1 = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.08, 0.08), mats.solid);
+                    const arm2 = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.08, 2.4), mats.solid);
+                    addPart(arm1, 'rotate', { speed: 0.01 });
+                    addPart(arm2, 'rotate', { speed: 0.01 });
+                    [ [1.2, 1.2], [1.2, -1.2], [-1.2, 1.2], [-1.2, -1.2] ].forEach(p => {
+                        const prop = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 0.02, 16), mats.glow);
+                        prop.position.set(p[0], 0.1, p[1]);
+                        addPart(prop, 'rotate', { speed: 0.4 });
+                    });
                     break;
-                case 3: // Joint
-                    const s1 = new THREE.Mesh(new THREE.SphereGeometry(0.5), mats.glow);
-                    addPart(s1, 'pulse');
+                case 3: // Hydraulic Actuator Joint
+                    const cylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 1.5, 16), mats.solid);
+                    const piston = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 1.2, 16), mats.glow);
+                    addPart(cylinder, 'none');
+                    addPart(piston, 'osc_translate', { axis: 'y', range: 0.5 });
                     break;
-                case 4: // Leg
-                    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 1.5), mats.solid);
-                    addPart(leg, 'osc', { axis: 'z', range: 0.7 });
+                case 4: // Bionic Leg Linkage
+                    const upper = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 1, 12), mats.solid);
+                    const lower = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 1, 12), mats.solid);
+                    const joint = new THREE.Mesh(new THREE.SphereGeometry(0.25, 12, 12), mats.glow);
+                    upper.position.y = 0.5;
+                    lower.position.y = -0.5;
+                    addPart(upper, 'osc', { axis: 'z', range: 0.4 });
+                    addPart(lower, 'osc', { axis: 'z', range: -0.8 });
+                    addPart(joint, 'none');
                     break;
-                case 5: // Bracket
-                    const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(0.6, 0.2, 100, 16), mats.glow);
-                    addPart(knot, 'rotate', { speed: 0.01 });
+                case 5: // Aerospace Lattice Bracket
+                    const cage = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.5, 1.5), mats.wire);
+                    addPart(cage, 'rotate', { speed: 0.01 });
+                    for(let i = 0; i < 3; i++) {
+                        const ring = new THREE.Mesh(new THREE.TorusGeometry(0.8 - i*0.2, 0.05, 12, 32), mats.glow);
+                        ring.rotation.x = i * Math.PI / 3;
+                        addPart(ring, 'rotate', { speed: 0.02 * (i+1) });
+                    }
                     break;
             }
 
@@ -338,6 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentParts.forEach(p => {
                 if(p.type === 'rotate') p.mesh.rotation.y += p.speed;
                 if(p.type === 'osc') p.mesh.rotation[p.axis] = Math.sin(globalTime) * p.range;
+                if(p.type === 'osc_translate') p.mesh.position[p.axis] = Math.sin(globalTime) * p.range;
                 if(p.type === 'pulse') p.mesh.scale.setScalar(1 + Math.sin(globalTime) * 0.1);
             });
 

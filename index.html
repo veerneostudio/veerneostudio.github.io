@@ -73,18 +73,45 @@
 
         <section class="demo-section">
             <div class="section-content">
-                <div class="demo-container">
-                    <div class="demo-text">
-                        <div class="latency-indicator">Inference Trace: <span class="latency-value" data-base="12.4">12.4</span>ms</div>
-                        <h2 class="reveal">Talk to your Tools.</h2>
-                        <p>Speak or type your design intent. VeerNeo's inference engine interprets constraints and generates editable geometry in real-time.</p>
-                        <div class="prompt-box">
-                            <div class="prompt-input" id="demo-prompt">"Create a 20-tooth spur gear with a 50mm pitch diameter..."</div>
-                            <div class="prompt-cursor"></div>
+                <div class="demo-header">
+                    <span class="eyebrow" style="margin-bottom: 24px;">Real-time Inference</span>
+                    <h2 class="reveal">Talk to your Tools.</h2>
+                    <p class="large-p" style="margin: 0; margin-bottom: 64px;">Language is the new CAD kernel. Describe your intent, and let the neural engine handle the complex topology.</p>
+                </div>
+                
+                <div class="demo-grid-redesign">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <div class="terminal-title">veerneo-inference-engine</div>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="line"><span class="cyan">➜</span> <span class="white">veerneo</span> <span class="grey">init --kernel b-rep</span></div>
+                            <div class="line green">Status: Neural Engine Linked</div>
+                            <div class="line"><span class="cyan">➜</span> <span class="white">generate</span> <span class="grey">--intent</span></div>
+                            <div class="line prompt-line">
+                                <span class="prompt-text" id="demo-prompt">"Create a 20-tooth spur gear with a 50mm pitch diameter..."</span>
+                                <span class="cursor">_</span>
+                            </div>
+                            <div class="line grey">// Analyzing mechanical constraints...</div>
+                            <div class="line grey">// Optimizing for torque distribution...</div>
+                            <div class="line cyan">✓ 1.2k Vertices generated (12.4ms)</div>
                         </div>
                     </div>
-                    <div class="demo-visual" id="demo-canvas-container">
-                        <!-- Three.js Interactive Component -->
+
+                    <div class="preview-window">
+                        <div class="demo-visual" id="demo-canvas-container">
+                            <!-- Three.js Interactive Component -->
+                            <div class="scanner"></div>
+                            <div class="preview-stats">
+                                <div class="stat"><span>MODE</span><span>PARAMETRIC</span></div>
+                                <div class="stat"><span>SOLVER</span><span>NEURAL</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
